@@ -118,5 +118,31 @@ describe DollarAmountsProcessor do
         current balance. Some A.T.M.'s will also print your balance on a cash with the.
       EOOUT
     end
+
+    it "replaces words with numbers in euro case #2" do
+      expect(subject.process(
+        "That balance is one hundred seventy one dollars and sixty eight cents.  Your cash account balance is the euro.  Dollars and ninety cents.  As a reminder.  By saving the receipt from your last purchase and or your last cash purchase or cashback transaction.  You will always have."
+      )).to eq_text(
+        "That balance is $171.68.  Your cash account balance is $0.90.  As a reminder.  By saving the receipt from your last purchase and or your last cash purchase or cashback transaction.  You will always have."
+      )
+    end
+
+    it "handles case #9" do
+      expect(subject.process(
+        "They were snapped balances.  Ten dollars and twenty two cents.  Your cash balance is one dollar to repeat your account balance.  Press one.  To hear your last ten transactions on your card.  Press two to change European press three. To report."
+      )).to eq_text(
+        "They were snapped balances.  $10.22.  Your cash balance is $1.00 to repeat your account balance.  Press one.  To hear your last ten transactions on your card.  Press two to change European press three. To report."
+      )
+    end
+
+    it "handles case #10" do
+      pending
+      "Balance is twenty two dollars and eight cents.  Your cash account balance is zero dollars and sixty eight cents.  As a reminder.  By saving the receipt from your last purchase and or your last cash purchase or cash back Prinz action. You will always have your current balance."
+    end
+
+    it "handles case #11" do
+      pending
+      "Step.  Balance is nineteen dollars and five cents.  Your cash account balance is eight dollars and thirty one cents.  As a reminder.  By saving the receipt from your last purchase and or your last cash purchase or cashback transaction.  You will always have your current balance."
+    end
   end
 end
